@@ -1,4 +1,6 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
@@ -6,9 +8,16 @@ const exp = require('constants');
 
 const app = express();
 
+dotenv.config({ path: './config.env' })
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(connection => {
+    console.log('mongueaos papa')
+  })
+  .catch('Error conectando mongo')
+
 //IMPORTING ROUTES
 const mainRoutes = require('./routes/main');
-const { prototype } = require('stream');
 
 //SETTINGS
 app.set('port', process.env.PORT || 3000);
